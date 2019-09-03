@@ -1,4 +1,5 @@
 node_modules/
 .deno/
 .cloned/
+.env
 yarn-error.log
