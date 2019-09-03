@@ -1,6 +1,6 @@
 # deno-test-bot
 
-> A GitHub App built with [Probot](https://github.com/probot/probot) that Bot that automatically runs deno tests
+> A GitHub App built with [Probot](https://github.com/probot/probot) that intend to automatically runs deno tests
 
 ## Setup
 
@@ -23,4 +23,4 @@ For more, check out the [Contributing Guide](CONTRIBUTING.md).
 
 ## License
 
-[ISC](LICENSE) © 2019 Kevin (Kun) "Kassimo" Qian <kevinkassimo@gmail.com>
+[MIT](LICENSE) © 2019 DenoLib Contributors.
