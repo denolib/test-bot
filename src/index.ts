@@ -48,7 +48,7 @@ async function cloneAndTest(
   let output: TestInfo | undefined;
   try {
     const GIT = git();
-    await GIT.clone(repoPath, localPath, [`-b ${branchName}`]);
+    await GIT.clone(repoPath, localPath, ["-b", branchName]);
     const { code, stdout, stderr } = await system(`${INSTALLED_DENO_PATH} test -A`);
     output = {
       status: code === 0 ? TestStatus.SUCCESS : TestStatus.FAILED,
@@ -73,7 +73,7 @@ async function cloneAndTest(
 }
 
 function getCommentBody(info: TestInfo): string {
-  let s = "\`deno test\` status: ${statusToString(info.status)}.\n\n"
+  let s = "\`deno test\` status: " + statusToString(info.status) + ".\n\n";
   if (!info.errorLog) {
     s += `stdout:
 
