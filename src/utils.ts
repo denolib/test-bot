@@ -1,4 +1,4 @@
-const { exec } = require("child_process");
+import { exec } from "child_process";
 
 export interface Deferred<T> extends Promise<T> {
   resolve: (value?: T | PromiseLike<T>) => void;
@@ -19,27 +19,24 @@ interface SystemOutput {
   code: number;
   stdout: string,
   stderr: string,
+  error: string,
 }
 
-export async function system(cmd: string, cwd?: string): Promise<SystemOutput> {
+export async function system(cmd: string, options: {[key: string]: any} = {}): Promise<SystemOutput> {
   const codePromise = deferred<number>();
-  const outputPromise = deferred<[string, string]>();
+  const outputPromise = deferred<[string, string, string]>();
 
-  exec(cmd, {
-    cwd: cwd || null,
-  }, (err: Error, so: string, se: string) => {
-    if (err) {
-      throw err;
-    }
-    outputPromise.resolve([so, se]);
+  exec(cmd, options, (err, so: string, se: string) => {
+    outputPromise.resolve([String(err), so, se]);
   }).on("exit", (c: number) => codePromise.resolve(c));
 
   const code = await codePromise;
-  const [stdout, stderr] = await outputPromise;
+  const [error, stdout, stderr] = await outputPromise;
 
   return {
     code,
     stdout,
     stderr,
+    error,
   };
 }

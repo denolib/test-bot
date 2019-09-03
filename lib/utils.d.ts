@@ -7,6 +7,9 @@ interface SystemOutput {
     code: number;
     stdout: string;
     stderr: string;
+    error: string;
 }
-export declare function system(cmd: string, cwd?: string): Promise<SystemOutput>;
+export declare function system(cmd: string, options?: {
+    [key: string]: any;
+}): Promise<SystemOutput>;
 export {};
